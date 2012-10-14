@@ -1,0 +1,26 @@
+#!/usr/bin/python
+
+import sys
+
+annotation=sys.argv[1]
+
+def gtfinfo_to_dict(info):
+    pairs = info.strip().split("; ")
+    results = {}
+    for pair in pairs:
+        key, value = pair.strip().split(" ")
+        value = value.replace("\"", "")
+        results[key] = value
+    return results
+
+for line in sys.stdin:
+    if line.startswith("#"):
+        continue
+    fields = line.strip().split("\t")
+    chrom = fields[0]
+    start = fields[3]
+    end = fields[4]
+    info = fields[8]
+    annotations = gtfinfo_to_dict(info)
+    value = annotations[annotation]
+    print "\t".join(map(str, [chrom, start, end, value]))
