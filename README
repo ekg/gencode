@@ -1,1 +1,6 @@
-Scripts for working with Gencode data in GTF format.
+gencode scripts
+
+Scripts for working with GENCODE data in GTF format.
+
+author:  Erik Garrison <erik.garrison@bc.edu>
+license: free
