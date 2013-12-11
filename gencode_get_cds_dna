@@ -1,0 +1,14 @@
+#!/bin/zsh
+#
+
+
+if [ $# -ne 3 ];
+then
+    echo "usage $0 [gene name] [gencode annotations (gz] [reference.fa]"
+    exit
+fi
+gene=$1
+gencode=$2
+ref=$3
+
+zgrep $gene $gencode | cut -f 1,3,4,5 | grep CDS | cut -f 1,3,4 | awk '{ print $1":"$2"-"$3 }' | sed s/chr// | parallel -k 'fastahack -r {} '$ref | tr -d '\n' | fasta_pretty_print $name
